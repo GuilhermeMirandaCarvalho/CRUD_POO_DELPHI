@@ -1,10 +1,7 @@
 unit Model.Entidades.Orcamento;
-
 interface
-
 uses
   Model.DAO.Interfaces;
-
 type
   TOrcamento = class
   private
@@ -19,29 +16,21 @@ type
     destructor Destroy; override;
     function OrcamentoID(Value : Integer) : TOrcamento; overload;
     function OrcamentoID: Integer; overload;
-
     function CentrocustoID(Value : Integer) : TOrcamento; overload;
     function CentrocustoID : Integer; overload;
-
     function ValorOrcado(Value : Double) : TOrcamento; overload;
     function ValorOrcado : Double; overload;
-
     function ValorGasto(Value : Double) : TOrcamento; overload;
     function ValorGasto : Double; overload;
-
     function &End : iDAOEntity<TOrcamento>;
   end;
 
-
 implementation
-
 { TOrcamento }
-
 constructor TOrcamento.Create(Parent: iDAOEntity<TOrcamento>);
 begin
   FParent:=Parent;
 end;
-
 function TOrcamento.CentrocustoID(Value: Integer): TOrcamento;
 begin
   Result:=Self;
@@ -52,7 +41,6 @@ function TOrcamento.CentrocustoID: Integer;
 begin
   Result:=FCentrocustoID;
 end;
-
 function TOrcamento.OrcamentoID(Value: Integer): TOrcamento;
 begin
   Result:=Self;
@@ -90,12 +78,9 @@ function TOrcamento.&End: iDAOEntity<TOrcamento>;
 begin
   Result:=FParent;
 end;
-
 destructor TOrcamento.Destroy;
 begin
-
   inherited;
 end;
-
 
 end.

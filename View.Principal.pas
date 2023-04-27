@@ -8,12 +8,9 @@ type
   TViewPrincipal = class(TForm)
     Panel1: TPanel;
     Panel2: TPanel;
-    dsPedido: TDataSource;
-    dsPedidoItens: TDataSource;
     btnCancelar: TButton;
     btnListar: TButton;
     btnEditar: TButton;
-    btnExcluir: TButton;
     Panel9: TPanel;
     edtCentroCusto: TEdit;
     btnInserirCentroCusto: TButton;
@@ -30,17 +27,22 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    btnExcluirOrcamento: TButton;
+    btnExcluirCentroCusto: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnListarClick(Sender: TObject);
-    procedure btnExcluirClick(Sender: TObject);
+    procedure btnExcluirOrcamentoClick(Sender: TObject);
     procedure btnInserirCentroCustoClick(Sender: TObject);
     procedure btnInserirOrcamentoClick(Sender: TObject);
     procedure grdCentroCustoCellClick(Column: TColumn);
     procedure grdOrcamentoCellClick(Column: TColumn);
     procedure FormShow(Sender: TObject);
+    procedure btnExcluirCentroCustoClick(Sender: TObject);
   private
     FControle : iControle;
     procedure ListarTodos;
+    procedure LimparCampos;
+    function VerificaSeTemDetail: boolean;
   public
   end;
 var
@@ -54,34 +56,36 @@ begin
 end;
 procedure TViewPrincipal.FormShow(Sender: TObject);
 begin
+  ListarTodos;
   edtCentroCusto.SetFocus;
 end;
 
-procedure TViewPrincipal.btnExcluirClick(Sender: TObject);
+procedure TViewPrincipal.btnExcluirCentroCustoClick(Sender: TObject);
 begin
-  if grdCentroCusto.SelectedRows.Count>0 then
-  begin
-    FControle
-      .Entidades
-      .CentroCusto
-        .This
-          .Centro_CustoId(dsCentroCusto.DataSet.FieldByName('CENTRO_CUSTOID').AsInteger)
-        .&End
-      .Excluir;
-    grdCentroCusto.SelectedRows.Clear;
-  end
-  else if grdOrcamento.SelectedRows.Count>0 then
-  begin
-    FControle
-      .Entidades
-      .Orcamento
-        .This
-          .OrcamentoID(dsPedidoItens.DataSet.FieldByName('ORCAMENTOID').AsInteger)
-          .CentrocustoID(dsPedidoItens.DataSet.FieldByName('CENTRO_CUSTOID').AsInteger)
-        .&End
-      .Excluir;
-    grdOrcamento.SelectedRows.Clear;
-  end;
+  if VerificaSeTemDetail then
+    Exit;
+  FControle
+    .Entidades
+    .CentroCusto
+      .This
+        .CentroCustoId(dsCentroCusto.DataSet.FieldByName('CENTROCUSTOID').AsString)
+      .&End
+    .Excluir;
+  grdCentroCusto.SelectedRows.Clear;
+  ListarTodos;
+end;
+
+procedure TViewPrincipal.btnExcluirOrcamentoClick(Sender: TObject);
+begin
+  FControle
+    .Entidades
+    .Orcamento
+      .This
+        .OrcamentoID(dsOrcamento.DataSet.FieldByName('ORCAMENTOID').AsInteger)
+        .CentrocustoID(dsOrcamento.DataSet.FieldByName('CENTROCUSTOID').AsInteger)
+      .&End
+    .Excluir;
+  grdOrcamento.SelectedRows.Clear;
   ListarTodos;
 end;
 procedure TViewPrincipal.btnListarClick(Sender: TObject);
@@ -94,12 +98,13 @@ begin
     .Entidades
     .CentroCusto
       .This
-        .Codigo(edtCentroCusto.Text)
+        .CentroCustoId(edtCentroCusto.Text)
         .CodigoPai(Copy(edtCentroCusto.Text,0,2))
         .CodigoFilho(Copy(edtCentroCusto.Text,3,Length(edtCentroCusto.Text)))
       .&End
     .Inserir;
   grdCentroCusto.SelectedRows.Clear;
+  LimparCampos;
   btnListar.Click;
 end;
 procedure TViewPrincipal.btnInserirOrcamentoClick(Sender: TObject);
@@ -108,11 +113,13 @@ begin
     .Entidades
     .Orcamento
       .This
+        .CentrocustoID(dsCentroCusto.DataSet.FieldByName('CENTROCUSTOID').AsInteger)
         .ValorOrcado(StrToFloatDef(edtValorOrcado.Text,0))
         .ValorGasto(StrToFloatDef(edtValorGasto.Text,0))
       .&End
     .Inserir;
   grdCentroCusto.SelectedRows.Clear;
+  LimparCampos;
   btnListar.Click;
 end;
 procedure TViewPrincipal.grdCentroCustoCellClick(Column: TColumn);
@@ -122,7 +129,7 @@ begin
   FControle
     .Entidades
     .Orcamento
-    .ListarPorId(dsCentroCusto.DataSet.FieldByName('CENTRO_CUSTOID').AsInteger)
+    .ListarPorId(dsCentroCusto.DataSet.FieldByName('CENTROCUSTOID').AsInteger)
     .DataSet(dsOrcamento);
 end;
 procedure TViewPrincipal.grdOrcamentoCellClick(Column: TColumn);
@@ -130,9 +137,28 @@ begin
   grdCentroCusto.SelectedRows.Clear;
   grdOrcamento.SelectedRows.CurrentRowSelected:=true;
 end;
+
+procedure TViewPrincipal.LimparCampos;
+begin
+  edtCentroCusto.Text:='';
+  edtValorOrcado.Text:='';
+  edtValorGasto.Text:='';
+end;
+
 procedure TViewPrincipal.ListarTodos;
 begin
   FControle.Entidades.CentroCusto.Listar.DataSet(dsCentroCusto);
   FControle.Entidades.Orcamento.Listar.DataSet(dsOrcamento);
 end;
+
+function TViewPrincipal.VerificaSeTemDetail: boolean;
+begin
+  Result:=False;
+  if dsOrcamento.DataSet.RecordCount>0 then
+  begin
+    Showmessage('É nessário excluir os Orçamentos');
+    Result:=True;
+  end;
+end;
+
 end.

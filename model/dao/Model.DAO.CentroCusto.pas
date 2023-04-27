@@ -48,9 +48,10 @@ begin
   Result:=Self;
   try
     FConexao
-      .SQL('UPDATE CENTRO_CUSTO SET CODIGO=:CODIGO WHERE CENTRO_CUSTOID=:CENTRO_CUSTOID')
-      .Params('CODIGO',FCentroCusto.Codigo)
-      .Params('CENTRO_CUSTOID',FCentroCusto.Centro_CustoId)
+      .SQL('UPDATE CENTRO_CUSTO SET CODIGOPAI=:CODIGOPAI, CODIGOFILHO=:CODIGOFILHO  WHERE CENTROCUSTOID=:CENTROCUSTOID')
+      .Params('CODIGOPAI',FCentroCusto.CodigoPai)
+      .Params('CODIGOFILHO',FCentroCusto.CodigoFilho)
+      .Params('CENTROCUSTOID',FCentroCusto.CentroCustoId)
       .ExecSQL
   except on e:Exception do
     raise Exception.Create('Error ao tentar atualizar o resgistro: '+e.Message);
@@ -84,7 +85,7 @@ begin
   try
     FConexao
     .SQL('DELETE FROM CENTROCUSTO WHERE CENTROCUSTOID=:CENTROCUSTOID')
-    .Params('CENTROCUSTOID',FCentroCusto.Centro_CustoId)
+    .Params('CENTROCUSTOID',FCentroCusto.CentroCustoId)
     .ExecSQL;
   except on e:Exception do
     raise Exception.Create('Error ao tentar exluir o registro: '+e.Message);
@@ -97,7 +98,7 @@ begin
   try
     FConexao
     .SQL('DELETE FROM CENTROCUSTO WHERE CENTROCUSTOID=:CENTROCUSTOID')
-    .Params('CENTRO_CUSTOID',FCentroCusto.Centro_CustoId)
+    .Params('CENTROCUSTOID',FCentroCusto.CentroCustoId)
     .ExecSQL;
   except on e:Exception do
     raise Exception.Create('Error ao tentar exluir o registro: '+e.Message);
@@ -113,7 +114,7 @@ begin
            '   (CENTROCUSTOID, CODIGOPAI, CODIGOFILHO) '+
            ' VALUES '+
            '   (:CENTROCUSTOID, :CODIGOPAI, :CODIGOFILHO) ')
-      .Params('CENTROCUSTOID', FCentroCusto.Codigo)
+      .Params('CENTROCUSTOID',FCentroCusto.CentroCustoId)
       .Params('CODIGOPAI', FCentroCusto.CodigoPai)
       .Params('CODIGOFILHO', FCentroCusto.CodigoFilho)
       .ExecSQL;
@@ -138,7 +139,7 @@ begin
   FDataSet :=
     FConexao
       .SQL('SELECT * FROM CENTROCUSTO WHERE CENTROCUSTOID=:CENTROCUSTOID')
-      .Params('CENTROCUSTOID',FCentroCusto.Centro_CustoId)
+      .Params('CENTROCUSTOID',FCentroCusto.CentroCustoId)
       .Open
       .DataSet;
 end;

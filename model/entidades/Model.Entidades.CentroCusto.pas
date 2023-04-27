@@ -1,29 +1,21 @@
 unit Model.Entidades.CentroCusto;
-
 interface
-
 uses
   Model.DAO.Interfaces;
-
 type
   TCentroCusto = class
   private
     [weak]
     FParent : iDAOEntity<TCentroCusto>;
-
-    FCentro_CustoId: Integer;
-    FCodigo: string;
+    FCentroCustoId: string;
     FCodigoPai: string;
     FCodigoFilho: string;
   public
     constructor Create(Parent : iDAOEntity<TCentroCusto>);
     destructor Destroy; override;
 
-    function Centro_CustoId(Value : Integer) : TCentroCusto; overload;
-    function Centro_CustoId : Integer; overload;
-
-    function Codigo(Value : string) : TCentroCusto; overload;
-    function Codigo : string; overload;
+    function CentroCustoId(Value : string) : TCentroCusto; overload;
+    function CentroCustoId : string; overload;
 
     function CodigoPai(Value: string): TCentroCusto; overload;
     function CodigoPai: string; overload;
@@ -34,33 +26,21 @@ type
     function &End : iDAOEntity<TCentroCusto>;
   end;
 implementation
-
 { TCentroCusto }
 constructor TCentroCusto.Create(Parent: iDAOEntity<TCentroCusto>);
 begin
   FParent:=Parent;
 end;
 
-function TCentroCusto.Centro_CustoId(Value: Integer): TCentroCusto;
+function TCentroCusto.CentroCustoId(Value: string): TCentroCusto;
 begin
   Result:=Self;
-  FCentro_CustoId:=Value;
+  FCentroCustoId:=Value;
 end;
 
-function TCentroCusto.Centro_CustoId: Integer;
+function TCentroCusto.CentroCustoId: string;
 begin
-  Result:=FCentro_CustoId;
-end;
-
-function TCentroCusto.Codigo(Value: string): TCentroCusto;
-begin
-  Result:=Self;
-  FCodigo:=Value;
-end;
-
-function TCentroCusto.Codigo: string;
-begin
-  Result:=FCodigo;
+  Result:=FCentroCustoId;
 end;
 
 function TCentroCusto.CodigoFilho(Value: string): TCentroCusto;
@@ -89,10 +69,8 @@ function TCentroCusto.&End: iDAOEntity<TCentroCusto>;
 begin
   Result:=FParent;
 end;
-
 destructor TCentroCusto.Destroy;
 begin
   inherited;
 end;
-
 end.

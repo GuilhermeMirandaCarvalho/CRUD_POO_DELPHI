@@ -96,9 +96,8 @@ begin
   Result:=Self;
   try
     FConexao
-      .SQL('INSERT INTO ORCAMENTO (ORCAMENTOID,CENTROCUSTOID, VALORORCADO, VALORGASTO) VALUES '+
-            '(:ORCAMENTOID,:CENTROCUSTOID,:VALORORCADO,:VALORGASTO)')
-      .Params('ORCAMENTOID',FOrcamento.OrcamentoID)
+      .SQL('INSERT INTO ORCAMENTO (CENTROCUSTOID, VALORORCADO, VALORGASTO) '+
+           'VALUES (:CENTROCUSTOID,:VALORORCADO,:VALORGASTO)')
       .Params('CENTROCUSTOID', FOrcamento.CentrocustoID)
       .Params('VALORORCADO',FOrcamento.ValorOrcado)
       .Params('VALORGASTO',FOrcamento.ValorGasto)
@@ -122,8 +121,8 @@ begin
   Result:=Self;
   FDataSet :=
     FConexao
-      .SQL('SELECT * FROM ORCAMENTO WHERE ORCAMENTOID=:ORCAMENTOID')
-      .Params('ORCAMENTOID',id)
+      .SQL('SELECT * FROM ORCAMENTO WHERE CENTROCUSTOID=:CENTROCUSTOID')
+      .Params('CENTROCUSTOID',id)
       .Open.DataSet;
 end;
 

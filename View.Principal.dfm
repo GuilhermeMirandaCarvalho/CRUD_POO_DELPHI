@@ -2,8 +2,8 @@ object ViewPrincipal: TViewPrincipal
   Left = 0
   Top = 0
   Caption = 'ViewPrincipal'
-  ClientHeight = 423
-  ClientWidth = 698
+  ClientHeight = 415
+  ClientWidth = 765
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,15 +17,17 @@ object ViewPrincipal: TViewPrincipal
   object Panel1: TPanel
     Left = 0
     Top = 369
-    Width = 698
-    Height = 54
+    Width = 765
+    Height = 46
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 698
+    ExplicitHeight = 54
     object Panel2: TPanel
       Left = 0
-      Top = 14
-      Width = 698
+      Top = 6
+      Width = 765
       Height = 40
       Align = alBottom
       BevelOuter = bvNone
@@ -34,6 +36,8 @@ object ViewPrincipal: TViewPrincipal
       Padding.Right = 5
       Padding.Bottom = 5
       TabOrder = 0
+      ExplicitTop = 14
+      ExplicitWidth = 698
       object btnCancelar: TButton
         Left = 5
         Top = 5
@@ -50,7 +54,7 @@ object ViewPrincipal: TViewPrincipal
         TabOrder = 0
       end
       object btnListar: TButton
-        Left = 468
+        Left = 610
         Top = 5
         Width = 75
         Height = 30
@@ -64,9 +68,10 @@ object ViewPrincipal: TViewPrincipal
         ParentFont = False
         TabOrder = 1
         OnClick = btnListarClick
+        ExplicitLeft = 468
       end
       object btnEditar: TButton
-        Left = 543
+        Left = 685
         Top = 5
         Width = 75
         Height = 30
@@ -79,29 +84,14 @@ object ViewPrincipal: TViewPrincipal
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 2
-      end
-      object btnExcluir: TButton
-        Left = 618
-        Top = 5
-        Width = 75
-        Height = 30
-        Align = alRight
-        Caption = 'Excluir'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 3
-        OnClick = btnExcluirClick
+        ExplicitLeft = 543
       end
     end
   end
   object Panel9: TPanel
     Left = 0
     Top = 0
-    Width = 698
+    Width = 765
     Height = 58
     Align = alTop
     BevelOuter = bvNone
@@ -112,6 +102,7 @@ object ViewPrincipal: TViewPrincipal
     Padding.Bottom = 5
     ParentBackground = False
     TabOrder = 1
+    ExplicitWidth = 698
     object Label1: TLabel
       Left = 12
       Top = 10
@@ -157,11 +148,26 @@ object ViewPrincipal: TViewPrincipal
       TabOrder = 1
       OnClick = btnInserirCentroCustoClick
     end
+    object btnExcluirCentroCusto: TButton
+      Left = 275
+      Top = 26
+      Width = 69
+      Height = 29
+      Caption = 'Excluir'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnClick = btnExcluirCentroCustoClick
+    end
   end
   object Panel10: TPanel
     Left = 0
     Top = 58
-    Width = 698
+    Width = 765
     Height = 129
     Align = alTop
     BevelOuter = bvNone
@@ -172,10 +178,11 @@ object ViewPrincipal: TViewPrincipal
     Padding.Bottom = 5
     ParentBackground = False
     TabOrder = 2
+    ExplicitWidth = 698
     object grdCentroCusto: TDBGrid
       Left = 5
       Top = 5
-      Width = 688
+      Width = 755
       Height = 119
       Align = alClient
       BorderStyle = bsNone
@@ -185,7 +192,7 @@ object ViewPrincipal: TViewPrincipal
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
-      Options = [dgTitles, dgColLines, dgRowLines, dgRowSelect, dgTitleHotTrack]
+      Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgRowSelect, dgTitleHotTrack]
       ParentFont = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
@@ -199,7 +206,7 @@ object ViewPrincipal: TViewPrincipal
   object Panel11: TPanel
     Left = 0
     Top = 187
-    Width = 698
+    Width = 765
     Height = 53
     Align = alTop
     BevelOuter = bvNone
@@ -210,6 +217,7 @@ object ViewPrincipal: TViewPrincipal
     Padding.Bottom = 5
     ParentBackground = False
     TabOrder = 3
+    ExplicitWidth = 698
     object Label2: TLabel
       Left = 8
       Top = 9
@@ -238,7 +246,7 @@ object ViewPrincipal: TViewPrincipal
     end
     object edtValorOrcado: TEdit
       AlignWithMargins = True
-      Left = 8
+      Left = 11
       Top = 26
       Width = 140
       Height = 24
@@ -264,7 +272,7 @@ object ViewPrincipal: TViewPrincipal
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 2
       OnClick = btnInserirOrcamentoClick
     end
     object edtValorGasto: TEdit
@@ -281,13 +289,28 @@ object ViewPrincipal: TViewPrincipal
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 1
+    end
+    object btnExcluirOrcamento: TButton
+      Left = 353
+      Top = 23
+      Width = 69
+      Height = 29
+      Caption = 'Excluir'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = btnExcluirOrcamentoClick
     end
   end
   object Panel12: TPanel
     Left = 0
     Top = 240
-    Width = 698
+    Width = 765
     Height = 129
     Align = alTop
     BevelOuter = bvNone
@@ -298,10 +321,11 @@ object ViewPrincipal: TViewPrincipal
     Padding.Bottom = 5
     ParentBackground = False
     TabOrder = 4
+    ExplicitWidth = 698
     object grdOrcamento: TDBGrid
       Left = 5
       Top = 5
-      Width = 688
+      Width = 755
       Height = 119
       Align = alClient
       BorderStyle = bsNone
@@ -311,7 +335,7 @@ object ViewPrincipal: TViewPrincipal
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
-      Options = [dgTitles, dgColLines, dgRowLines, dgRowSelect, dgTitleHotTrack]
+      Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgRowSelect, dgTitleHotTrack]
       ParentFont = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
@@ -322,20 +346,12 @@ object ViewPrincipal: TViewPrincipal
       OnCellClick = grdOrcamentoCellClick
     end
   end
-  object dsPedido: TDataSource
-    Left = 512
-    Top = 408
-  end
-  object dsPedidoItens: TDataSource
-    Left = 504
-    Top = 592
-  end
   object dsCentroCusto: TDataSource
     Left = 400
     Top = 104
   end
   object dsOrcamento: TDataSource
     Left = 400
-    Top = 232
+    Top = 264
   end
 end
